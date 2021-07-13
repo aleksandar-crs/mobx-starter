@@ -1,0 +1,40 @@
+.home-wrapper {
+  padding: 20px;
+  text-align: center;
+  .home-title {
+    color: red;
+    margin-bottom: 50px;
+  }
+  .test-number-wrapper {
+    width: 100%;
+    margin-bottom: 50px;
+  }
+  .test-number {
+    padding: 20px;
+    font-size: 24px;
+    border-radius: 50px;
+    background-color: red;
+    color: white;
+    font-weight: 900;
+  }
+  /* Button Warning styles */
+  .btn-warning {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 3px;
+    color: #000000 !important;
+    font-size: 14px;
+    background-color: #ffd900 !important;
+    border-color: #ffd900 !important;
+    text-shadow: none !important;
+  }
+  .btn-warning:hover {
+    background-color: #ffe866 !important;
+    border-color: #ffe866 !important;
+  }
+  .btn-warning:active {
+    background-color: #ebc700 !important;
+    border-color: #ebc700 !important;
+  }
+  /* End Button Warning styles */
+}
