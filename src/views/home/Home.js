@@ -1,11 +1,13 @@
 import React from "react";
-import { setup } from "../../utils/setup";
+import { observer } from "mobx-react";
+import { useMobX } from "../../index";
 
-const HomePage = ({ actions, helpers }) => {
+const HomePage = observer(() => {
   const setValue = (n) => {
     actions.app.setTestValue(n);
   };
 
+  const { actions, helpers } = useMobX();
   return (
     <div className="home-wrapper">
       <h1 className="home-title">Home Page Example View</h1>
@@ -26,6 +28,6 @@ const HomePage = ({ actions, helpers }) => {
       <p>( Setting state example method )</p>
     </div>
   );
-};
+});
 
-export default setup(HomePage);
+export default HomePage;

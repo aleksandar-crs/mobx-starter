@@ -1,10 +1,9 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { observable, toJS } from "mobx";
-import { Provider } from "mobx-react";
 import { stateExtender } from "./state/state.extender";
 import { apiInitializer } from "./state/api.initializer";
 
@@ -21,8 +20,22 @@ window.helpers = state.helpers;
 
 window.toJS = toJS;
 
+const RootStoreContext = createContext(null);
+
+export const Provider = RootStoreContext.Provider;
+
+export function useMobX() {
+  const store = useContext(RootStoreContext);
+  if (store === null) {
+    throw new Error('Store cannot be null, please add a context provider');
+  }
+  return store;
+}
+
+
+
 ReactDOM.render(
-  <Provider state={state} actions={state.actions} helpers={state.helpers}>
+  <Provider value={{ state, actions: state.actions, helpers: state.helpers }}>
     <App state={state} />
   </Provider>,
   document.getElementById("root"),
