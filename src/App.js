@@ -2,20 +2,15 @@ import React from "react";
 import "./styles/styles.scss";
 import "./App.css";
 import PropTypes from "prop-types";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-    import PageRoutes from "./utils/PageRoutes";
-import Navbar from "./components/navbar/Navbar";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./views/home/Home";
+import Lists from "./components/lists/Lists";
 
 const App = () => {
   return (
     <Router>
-      <div>
-        <Navbar />
-        <Switch>
-          <Route exact path={PageRoutes.Home} component={Home} />
-        </Switch>
-      </div>
+      <Route path="/" exact component={Home} />
+      <Route path="/:boardID/:title" component={Lists} />
     </Router>
   );
 };

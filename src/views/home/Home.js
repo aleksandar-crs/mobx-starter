@@ -1,31 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import { useMobX } from "../../index";
+import { Link } from "react-router-dom";
+import Board from "../../components/board/Board";
+import BoardModal from "../../components/modal/BoardModal";
 
 const HomePage = observer(() => {
-  const setValue = (n) => {
-    actions.app.setTestValue(n);
-  };
-
   const { actions, helpers } = useMobX();
+
+  useEffect(() => {
+    actions.board.setBoards();
+  }, [actions.board]);
+
   return (
-    <div className="home-wrapper">
-      <h1 className="home-title">Home Page Example View</h1>
-      <div className="test-number-wrapper">
-        {/* example of reading state value */}
-        <span className="test-number">{helpers.app.testValue}</span>
-        <p style={{ marginTop: 30 }}>( Reading state example )</p>
-      </div>
-      <button
-        className="btn-warning"
-        onClick={() => {
-          /* example of changing state value */
-          setValue(helpers.app.testValue + 10);
-        }}
-      >
-        Increase value by 10
-      </button>
-      <p>( Setting state example method )</p>
+    <div>
+      Home
+      {Array.from(helpers.board.boards).map((board, index) => (
+        <Link onClick={ (e) => actions.board.setSelectedBoard(e, board)} key={board.id} to={`/${board.id}/${board.name}`}>
+          <Board key={index} name={board.name} />
+        </Link>
+      ))}
+      <button onClick={ () => actions.board.showModal()}>create new board</button>
+      <BoardModal />
     </div>
   );
 });
