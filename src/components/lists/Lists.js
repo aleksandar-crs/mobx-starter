@@ -11,7 +11,7 @@ const Lists = observer(({ match }) => {
 
   useEffect(() => {
     actions.list.setLists();
-  }, [actions.list, boardId, helpers.list.lists]);
+  }, [actions.list]);
 
   return (
     <div>
