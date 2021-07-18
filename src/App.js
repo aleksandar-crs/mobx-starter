@@ -3,8 +3,7 @@ import "./styles/styles.scss";
 import "./App.css";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { setup } from "./utils/setup";
-import PageRoutes from "./utils/PageRoutes";
+    import PageRoutes from "./utils/PageRoutes";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./views/home/Home";
 
@@ -25,4 +24,4 @@ App.propTypes = {
   state: PropTypes.object,
 };
 
-export default setup(App);
+export default App;
