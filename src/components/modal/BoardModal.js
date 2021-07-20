@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { observer } from "mobx-react";
 import { useMobX } from "../../index";
-import { Link } from "react-router-dom";
-import Board from "../../components/board/Board";
 
 const BoardModal = observer(() => {
   const { actions, helpers } = useMobX();
@@ -20,14 +18,16 @@ const BoardModal = observer(() => {
                 X
               </button>
             </div>
-            <div style={{ padding: "15px", backgroundColor: "#f9f9f9" }}>
+            <div className="form-container">
+              <form>
               <input
                 type="text"
                 // value={appState.dialogInputValue}
                 // onChange={appState.actions.betValueDialog}
                 onChange={actions.board.setTitle}
               />
-              <button onClick={ actions.board.addBoard}>Create board</button>
+              <button disabled={!helpers.board.title.length} onClick={ actions.board.addBoard}>Create board</button>
+              </form>
             </div>
           </div>
         </div>

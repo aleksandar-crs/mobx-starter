@@ -11,7 +11,7 @@ export const initBoardAPI = (state) => {
         res.json().then((data) => {
           const value = data;
           state.board.boards = value
-        } 
+        }
       ))
     }),
 
@@ -36,14 +36,11 @@ export const initBoardAPI = (state) => {
         actions.board.hideModal()
         actions.board.setBoards(data);
       })
-
       );
-      
     }),
 
     setSelectedBoard: action("setSelectedBoard", (e, board) => {
       e.stopPropagation();
-      console.log(toJS(board));
       state.board.selectedBoard = board;
     })
   };

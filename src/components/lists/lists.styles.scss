@@ -1,0 +1,24 @@
+.lists-container {
+  width: fit-content;
+  align-items: baseline;
+  .form-container {
+    width: 230px;
+    min-height: 40px;
+    background-color: transparent;
+    margin: 20px 10px;
+  }
+  .add-btn {
+    background-color: rgba(150, 210, 210, 0.3);
+    // opacity: 0.5;
+  }
+  .submit-btn {
+    height: 32px;
+    margin-top: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #0079bf;
+    box-shadow: none;
+    border: none;
+    color: #fff;
+  }
+}

@@ -6,9 +6,9 @@ export const initListAPI = (state) => {
   const bid = window.location.pathname.split("/")[1];
 
   actions.list = {
-    setLists: action("setLists", () => {
-      const url = `https://api.trello.com/1/boards/${bid}/lists?key=${process.env.REACT_APP_KEY}&token=${process.env.REACT_APP_TOKEN}`;
-      fetch(url).then((res) =>
+    setLists: action("setLists", (paramId) => {
+      const url = `https://api.trello.com/1/boards/${paramId}/lists?key=${process.env.REACT_APP_KEY}&token=${process.env.REACT_APP_TOKEN}`;
+      return fetch(url).then((res) =>
         res.json().then((data) => (state.list.lists = data))
       );
     }),
@@ -21,16 +21,20 @@ export const initListAPI = (state) => {
       state.list.showForm = false;
     }),
 
-    addNewList: action("addNewList", (e) => {
+    showForm: action("hideForm", () => {
+      state.list.showForm = true;
+    }),
+
+    addNewList: action("addNewList", (e, paramId) => {
       e.preventDefault();
-      const url = `https://api.trello.com/1/lists?key=${process.env.REACT_APP_KEY}&token=${process.env.REACT_APP_TOKEN}&name=${helpers.list.name}&idBoard=${bid}`;
+      const url = `https://api.trello.com/1/lists?key=${process.env.REACT_APP_KEY}&token=${process.env.REACT_APP_TOKEN}&name=${helpers.list.name}&idBoard=${paramId}`;
       fetch(url, {
         method: "POST",
       }).then((res) =>
         res.json().then((data) => {
           state.list.lists = data;
           state.list.name = "";
-          actions.list.hideForm();
+          state.list.showForm = true;
         })
       );
     }),

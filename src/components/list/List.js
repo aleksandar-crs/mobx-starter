@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-// import "./list.scss";
+import "./list.styles.scss";
 
-const List = (props) => {
+const List = ({list}) => {
   const [showInput, hideInput] = useState(false)
-  
+
   return (
     <div className="list">
-      <h3>{props.name}</h3>
-      {showInput && 
-      <textarea placeholder="add title"></textarea> }
-      <button onClick={() => hideInput(true)}>Add a card</button>
+      <h3>{list.name}</h3>
+      { showInput && <div>
+        <textarea placeholder="add title" />
+        <button>+ add card</button>
+        {console.log(list.name)}
+        <span onClick={ () => hideInput(false)}>ooooo</span>
+      </div> }
+      {!showInput &&  <button onClick={() => hideInput(true)}>Add a card</button> }
     </div>
   );
 };
