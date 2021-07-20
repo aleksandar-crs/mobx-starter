@@ -3,13 +3,14 @@ import { action } from "mobx";
 export const initListAPI = (state) => {
   const { actions, helpers } = state;
 
-  const bid = window.location.pathname.split("/")[1];
-
   actions.list = {
     setLists: action("setLists", (paramId) => {
       const url = `https://api.trello.com/1/boards/${paramId}/lists?key=${process.env.REACT_APP_KEY}&token=${process.env.REACT_APP_TOKEN}`;
       return fetch(url).then((res) =>
-        res.json().then((data) => (state.list.lists = data))
+        res.json().then((data) => {
+          data.forEach((list) => (list.isClosed = false));
+          state.list.lists = data;
+        })
       );
     }),
 
@@ -17,12 +18,12 @@ export const initListAPI = (state) => {
       state.list.name = e.target.value;
     }),
 
-    hideForm: action("hideForm", () => {
-      state.list.showForm = false;
+    hideNewListForm: action("hideNewListForm", () => {
+      state.list.showNewListForm = false;
     }),
 
-    showForm: action("hideForm", () => {
-      state.list.showForm = true;
+    showNewListForm: action("showNewListForm", () => {
+      state.list.showNewListForm = true;
     }),
 
     addNewList: action("addNewList", (e, paramId) => {
@@ -34,9 +35,48 @@ export const initListAPI = (state) => {
         res.json().then((data) => {
           state.list.lists = data;
           state.list.name = "";
-          state.list.showForm = true;
+          state.list.showNewListForm = true;
         })
       );
+    }),
+
+    setSelectedList: action("setSelectedList", (list) => {
+      state.list.selectedList = list;
+    }),
+
+    showCardForm: action("showCardForm", (event) => {
+      state.list.showCardForm = true;
+
+      // const listId = event.currentTarget.getAttribute("data-list");
+
+      // const lista = helpers.list.lists.findIndex(lis => {
+      //   return lis.id === listId;
+      // })
+
+      // return state.list.lists.forEach(list => list[lista].isClosed = true);
+
+      // console.log(lista);
+
+      // if(lista > -1) {
+      //   state.list.lists[lista].isClosed = true;
+      // }
+      // state.list.selectedList = list;
+    }),
+
+    hideCardForm: action("hideCardForm", () => {
+      state.list.showCardForm = false;
+    }),
+    deleteList: action("deleteList", (id) => {
+      console.log(id);
+      const url = `https://api.trello.com/1/lists/${id}/closedkey=${process.env.REACT_APP_KEY}&token=${process.env.REACT_APP_TOKEN}`;
+      fetch(url, {
+        method: "PUT"
+      })
+        .then(() => {
+          console.log("setting list");
+          actions.list.setLists();
+        })
+        .catch((error) => console.log("error ", error));
     }),
   };
 };

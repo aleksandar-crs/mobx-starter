@@ -1,13 +1,15 @@
 import { extendObservable } from "mobx";
 
 export const initListState = (state) => {
-  const { actions, helpers } = state;
+  const { helpers } = state;
 
   extendObservable(state, {
     list: {
       lists: [],
       name: "",
-      showForm: true,
+      showNewListForm: true,
+      selectedList: {},
+      showCardForm: false,
     },
   });
 
@@ -19,8 +21,14 @@ export const initListState = (state) => {
       get name() {
         return state.list.name;
       },
-      get showForm() {
-        return state.list.showForm;
+      get showNewListForm() {
+        return state.list.showNewListForm;
+      },
+      get selectedList() {
+        return state.list.selectedList;
+      },
+      get showCardForm() {
+        return state.list.showCardForm;
       },
     },
   });
